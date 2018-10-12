@@ -48,10 +48,11 @@ function createWindow(iconPath) {
   return window;
 }
 
+let config;
 app.on('ready', () => {
   const iconPath = path.join(app.getAppPath(), 'lib/assets/icons/icon-96x96.png');
   const window = createWindow(iconPath);
-  const config = configBuilder(app.getPath('userData'));
+  config = configBuilder(app.getPath('userData'));
 
   menus = new Menus(config, iconPath);
   menus.register(window);
