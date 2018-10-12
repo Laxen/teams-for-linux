@@ -9,6 +9,7 @@ const {
   BrowserWindow
 } = require('electron');
 const configBuilder = require('./config');
+const BasicHTTPAuthHandler = require('./BasicHTTPAuthHandler')
 
 const DEFAULT_WINDOW_WIDTH = 800;
 const DEFAULT_WINDOW_HEIGHT = 800;
@@ -89,4 +90,8 @@ app.on('login', function (event, webContents, request, authInfo, callback) {
   if (typeof config.firewallUsername !== 'undefined') {
     callback(config.firewallUsername, config.firewallPassword);
   }
+
+  const handler = new BasicHTTPAuthHandler()
+  const parentWindow = BrowserWindow.fromWebContents(webContents.hostWebContents ? webContents.hostWebContents : webContents)
+  handler.start(parentWindow, request, authInfo, callback)
 });
