@@ -47,6 +47,13 @@ class Menus {
           click: () => Menus.reload(window)
         },
         {
+          label: 'Dev Tools',
+          accelerator: 'Ctrl+Shift+I',
+          click (item, focusedWindow) {
+            if (focusedWindow) focusedWindow.webContents.toggleDevTools()
+          }
+        },
+        {
           label: 'Quit',
           accelerator: 'ctrl+Q',
           click: () => Menus.quit()
