@@ -73,11 +73,13 @@ app.on('ready', () => {
     });
   });
 
-  if (config.userAgent === 'edge') {
-    window.webContents.setUserAgent(config.edgeUserAgent);
-  } else {
-    window.webContents.setUserAgent(config.chromeUserAgent);
-  }
+  window.webContents.on('dom-ready', (event) => {
+    event.preventDefault();
+    const js_inject = 'navigator.__defineGetter__(\'userAgent\', function(){return \'' + config.edgeUserAgent + '\';});';
+    window.webContents.executeJavaScript(js_inject);
+  });
+
+  window.webContents.setUserAgent(config.chromeUserAgent);
   
   window.loadURL(config.url);
 
