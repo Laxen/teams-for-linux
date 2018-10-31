@@ -10,7 +10,7 @@ const {
 const preferences = require('./preferences');
 const help = require('./help');
 
-let shouldQuit = false;
+let shouldQuit = true;
 
 class Menus {
 
